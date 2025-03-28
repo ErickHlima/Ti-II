@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Pokémon</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        table { width: 80%; margin: auto; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 10px; }
+        .form-container { margin: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Cadastro de Pokémon</h1>
+    <div class="form-container">
+        <form id="pokemonForm">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+            <label for="nivel">Nível:</label>
+            <input type="number" id="nivel" name="nivel" required>
+            <label for="tipo">Tipo:</label>
+            <input type="text" id="tipo" name="tipo" required>
+            <button type="submit">Adicionar</button>
+        </form>
+    </div>
+    
+    <h2>Lista de Pokémons</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Nível</th>
+                <th>Tipo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="pokemonTable">
+        </tbody>
+    </table>
+    
+    <script>
+        document.getElementById("pokemonForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let nome = document.getElementById("nome").value;
+            let nivel = document.getElementById("nivel").value;
+            let tipo = document.getElementById("tipo").value;
+            
+            let tabela = document.getElementById("pokemonTable");
+            let novaLinha = tabela.insertRow();
+            let id = tabela.rows.length; 
+            
+            novaLinha.innerHTML = `<td>${id}</td><td>${nome}</td><td>${nivel}</td><td>${tipo}</td>
+                                   <td><button onclick="removerLinha(this)">Excluir</button></td>`;
+            
+            document.getElementById("pokemonForm").reset();
+        });
+        
+        function removerLinha(botao) {
+            let linha = botao.parentNode.parentNode;
+            linha.parentNode.removeChild(linha);
+        }
+    </script>
+</body>
+</html>
